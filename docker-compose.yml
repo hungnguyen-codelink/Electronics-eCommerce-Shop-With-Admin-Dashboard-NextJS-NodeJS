@@ -18,6 +18,29 @@ services:
     networks:
       - singitronic
 
+  express:
+    build:
+      context: .
+      dockerfile: server/Dockerfile.dev
+    container_name: electronics-express
+    restart: unless-stopped
+    env_file:
+      - .env.docker
+    ports:
+      - "3001:3001"
+    volumes:
+      # Bind-mount source for hot reload.
+      - ./server:/app/server
+      - ./prisma:/app/prisma
+      # Anonymous volume to keep the container's node_modules from being
+      # shadowed by the host's.
+      - /app/server/node_modules
+    depends_on:
+      mysql:
+        condition: service_healthy
+    networks:
+      - singitronic
+
 volumes:
   mysql_data:
 
