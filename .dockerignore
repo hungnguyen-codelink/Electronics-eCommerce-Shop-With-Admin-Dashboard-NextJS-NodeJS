@@ -1,0 +1,39 @@
+# Don't ship host artifacts into the build context
+node_modules
+.next
+.git
+.gitignore
+.vscode
+.idea
+.DS_Store
+
+# Logs
+*.log
+logs/
+npm-debug.log*
+
+# Local env (we inject via env_file at runtime, not bake in)
+.env
+.env*.local
+.env.docker
+.env.docker.example
+
+# Worktrees and brv state
+.worktrees/
+.brv/
+
+# Backups & SQL dumps
+backups/
+*.sql
+*.dump
+*.backup
+
+# Server-specific (handled by server/.dockerignore in server build)
+server/node_modules
+server/logs
+
+# Tests / coverage
+coverage/
+
+# Docs (not needed at runtime)
+docs/
