@@ -219,7 +219,12 @@ async function run() {
       where: { id: userReview.id },
     });
     assert.strictEqual(stillThere, null);
-    console.log("✓ delete by author => 200, row gone");
+    // After deleting the rating-5 review, 12 original seeded reviews remain
+    // with ratings [1,2,3,4,5,1,2,3,4,5,1,2], sum = 33
+    let p13 = await prisma.product.findUnique({ where: { id: product.id } });
+    const expectedAvg13 = Math.round((1 + 2 + 3 + 4 + 5 + 1 + 2 + 3 + 4 + 5 + 1 + 2) / 12);
+    assert.strictEqual(p13.rating, expectedAvg13, `Product.rating = ${expectedAvg13}`);
+    console.log("✓ delete by author => 200, row gone, rating recomputed");
 
     // Case 14: missing review => 404.
     r = await fetch(`${BASE}/api/reviews/does-not-exist`, {
