@@ -291,6 +291,10 @@ docker compose up -d --build <nextjs|express>
   the URL the browser is using.
 - **Prisma client looks stale after schema change** — `docker compose restart
   express nextjs` regenerates the client on container start.
+- **SSR pages show `ECONNREFUSED 127.0.0.1:3001` after editing `lib/api.ts` or
+  `lib/config.ts`** — Next.js is serving a cached `.next` build from before the
+  change. Clear it: `docker compose exec nextjs rm -rf .next && docker compose
+  restart nextjs`.
 - **`linux-musl` engine error from Prisma** — only happens if someone swaps
   the base image to Alpine. Stay on `node:20-bookworm-slim` (the default in
   this repo) and the default binary targets work.
