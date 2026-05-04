@@ -235,3 +235,62 @@ npm run dev
 <h3>Admin dashboard - All users page</h3>
 
 ![singitronic admin users page](https://github.com/Kuzma02/Electronics-eCommerce-Shop-With-Admin-Dashboard-NextJS-NodeJS/assets/138793624/e14e8f2c-4377-42fd-b89b-d4868cc11b11)
+
+## Docker Development Stack
+
+The full stack runs in Docker for local development — MySQL, Express, Next.js,
+and an Adminer DB GUI.
+
+### One-time setup
+
+```bash
+cp .env.docker.example .env.docker
+# Edit .env.docker and replace REPLACE_WITH_A_LONG_RANDOM_STRING with:
+#   openssl rand -base64 32
+
+docker compose up -d --build
+docker compose exec express npx prisma migrate dev --schema=/app/prisma/schema.prisma
+```
+
+After setup, the stack is reachable at:
+
+- Next.js → http://localhost:3000
+- Express → http://localhost:3001
+- Adminer → http://localhost:8080 (server `mysql`, user `root`, pass `dockerpass`)
+
+### Daily use
+
+```bash
+docker compose up -d                # start
+docker compose logs -f nextjs       # tail one service
+docker compose down                 # stop, keep DB volume
+docker compose down -v              # full reset (drops mysql_data)
+```
+
+Code changes in `app/`, `components/`, `lib/`, or `server/` hot-reload via the
+bind mount. Schema changes need:
+
+```bash
+docker compose exec express npx prisma migrate dev --name <change>
+docker compose restart express nextjs
+```
+
+Adding a new dependency (`package.json` change) requires rebuilding the
+service so the anonymous `node_modules` volume is regenerated:
+
+```bash
+docker compose up -d --build <nextjs|express>
+```
+
+### Troubleshooting
+
+- **Express can't reach MySQL** — `docker compose ps` should show `mysql` as
+  `healthy`. If it sticks at `unhealthy`, `docker compose logs mysql` will
+  show why (commonly: host port 3306 collision).
+- **Browser shows CORS error** — `FRONTEND_URL` in `.env.docker` must match
+  the URL the browser is using.
+- **Prisma client looks stale after schema change** — `docker compose restart
+  express nextjs` regenerates the client on container start.
+- **`linux-musl` engine error from Prisma** — only happens if someone swaps
+  the base image to Alpine. Stay on `node:20-bookworm-slim` (the default in
+  this repo) and the default binary targets work.
