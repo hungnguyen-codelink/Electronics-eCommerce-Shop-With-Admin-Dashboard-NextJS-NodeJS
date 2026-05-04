@@ -107,6 +107,86 @@ async function run() {
     assert.strictEqual(body.review.rating, 1);
     assert.strictEqual(body.review.comment, "seed comment #0");
     console.log("✓ user review returned when present");
+
+    // Case 6: create with valid body (users[12] has not reviewed yet) => 201
+    r = await fetch(`${BASE}/api/reviews`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        productId: product.id,
+        userId: users[12].id,
+        rating: 5,
+        comment: "Great product",
+      }),
+    });
+    body = await r.json();
+    assert.strictEqual(r.status, 201, `expected 201, got ${r.status}: ${JSON.stringify(body)}`);
+    assert.ok(body.review.id, "id returned");
+    assert.strictEqual(body.review.rating, 5);
+    console.log("✓ create returns 201");
+
+    // Case 7: Product.rating recomputed
+    let p = await prisma.product.findUnique({ where: { id: product.id } });
+    // 12 seeded ratings (1..5 cycling) + the new 5 => 13 reviews
+    const expectedAvg = Math.round(
+      (1 + 2 + 3 + 4 + 5 + 1 + 2 + 3 + 4 + 5 + 1 + 2 + 5) / 13
+    );
+    assert.strictEqual(p.rating, expectedAvg, `Product.rating = ${expectedAvg}`);
+    console.log("✓ Product.rating recomputed after create");
+
+    // Case 8: rating out of range => 400
+    r = await fetch(`${BASE}/api/reviews`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        productId: product.id,
+        userId: users[13].id,
+        rating: 6,
+      }),
+    });
+    assert.strictEqual(r.status, 400);
+    console.log("✓ rating=6 => 400");
+
+    // Case 9: missing user => 404
+    r = await fetch(`${BASE}/api/reviews`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        productId: product.id,
+        userId: "nope",
+        rating: 4,
+      }),
+    });
+    assert.strictEqual(r.status, 404);
+    console.log("✓ unknown userId => 404");
+
+    // Case 10: duplicate (users[12] already reviewed) => 409
+    r = await fetch(`${BASE}/api/reviews`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        productId: product.id,
+        userId: users[12].id,
+        rating: 4,
+        comment: "again",
+      }),
+    });
+    assert.strictEqual(r.status, 409);
+    console.log("✓ duplicate review => 409");
+
+    // Case 11: oversize comment => 400
+    r = await fetch(`${BASE}/api/reviews`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        productId: product.id,
+        userId: users[13].id,
+        rating: 4,
+        comment: "x".repeat(2001),
+      }),
+    });
+    assert.strictEqual(r.status, 400);
+    console.log("✓ comment > 2000 chars => 400");
   } finally {
     await cleanup(ctx);
     await prisma.$disconnect();
