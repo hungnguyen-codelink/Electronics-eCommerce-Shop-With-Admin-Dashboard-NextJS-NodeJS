@@ -1,0 +1,25 @@
+# Dev image for Express. Built from the project root so prisma/schema.prisma
+# is in scope — the schema lives at the repo root and is shared with Next.js.
+FROM node:20-bookworm-slim
+
+WORKDIR /app/server
+
+RUN apt-get update \
+ && apt-get install -y --no-install-recommends openssl ca-certificates \
+ && rm -rf /var/lib/apt/lists/*
+
+# Copy server manifests first for caching.
+COPY server/package.json server/package-lock.json* ./
+RUN npm install
+
+# Copy the rest of the server source.
+COPY server/ ./
+
+# Copy the shared Prisma schema (lives at the repo root).
+COPY prisma /app/prisma
+
+EXPOSE 3001
+
+# Generate the Prisma client pointing at the shared schema, then run with
+# Node 20's native --watch (no nodemon needed).
+CMD ["sh", "-c", "npx prisma generate --schema=/app/prisma/schema.prisma && node --watch app.js"]
