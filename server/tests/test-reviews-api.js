@@ -86,6 +86,27 @@ async function run() {
     r = await fetch(`${BASE}/api/reviews/product/does-not-exist`);
     assert.strictEqual(r.status, 404, "missing product 404");
     console.log("✓ list missing product => 404");
+
+    // Case 4: user's review when none exists => null
+    r = await fetch(
+      `${BASE}/api/reviews/product/${product.id}/user/${users[12].id}`
+    );
+    body = await r.json();
+    assert.strictEqual(r.status, 200, "user-review ok");
+    assert.strictEqual(body.review, null, "no review => null");
+    console.log("✓ user review null when none exists");
+
+    // Case 5: user's review when one exists => returned
+    // users[0] was seeded with rating=1, comment "seed comment #0"
+    r = await fetch(
+      `${BASE}/api/reviews/product/${product.id}/user/${users[0].id}`
+    );
+    body = await r.json();
+    assert.strictEqual(r.status, 200);
+    assert.ok(body.review, "review present");
+    assert.strictEqual(body.review.rating, 1);
+    assert.strictEqual(body.review.comment, "seed comment #0");
+    console.log("✓ user review returned when present");
   } finally {
     await cleanup(ctx);
     await prisma.$disconnect();

@@ -50,6 +50,26 @@ const listReviewsForProduct = asyncHandler(async (req, res) => {
   });
 });
 
+const getUserReviewForProduct = asyncHandler(async (req, res) => {
+  const { productId, userId } = req.params;
+  const product = await prisma.product.findUnique({ where: { id: productId } });
+  if (!product) throw new AppError("Product not found", 404);
+
+  const review = await prisma.review.findUnique({
+    where: { productId_userId: { productId, userId } },
+    select: {
+      id: true,
+      rating: true,
+      comment: true,
+      createdAt: true,
+      userId: true,
+    },
+  });
+
+  res.json({ review: review || null });
+});
+
 module.exports = {
   listReviewsForProduct,
+  getUserReviewForProduct,
 };
