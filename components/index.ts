@@ -22,6 +22,11 @@ export { default as StockAvailabillity } from "./StockAvailabillity";
 export { default as ColorInput } from "./ColorInput";
 
 export { default as ProductTabs } from "./ProductTabs";
+export { default as ReviewsTab } from "./ReviewsTab";
+export { default as ReviewCard } from "./ReviewCard";
+export { default as ReviewForm } from "./ReviewForm";
+export { default as YourReviewPanel } from "./YourReviewPanel";
+export { default as StarRating } from "./StarRating";
 
 
 export { default as CustomButton } from "./CustomButton";
