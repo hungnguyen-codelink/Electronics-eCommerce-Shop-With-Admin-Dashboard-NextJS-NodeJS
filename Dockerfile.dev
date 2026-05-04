@@ -1,0 +1,23 @@
+# Dev image for Next.js — bind-mount the source at runtime; this image is a
+# fallback for `docker run` without compose.
+FROM node:20-bookworm-slim
+
+WORKDIR /app
+
+# Install OS deps Prisma needs (openssl for query engine TLS, ca-certificates).
+RUN apt-get update \
+ && apt-get install -y --no-install-recommends openssl ca-certificates \
+ && rm -rf /var/lib/apt/lists/*
+
+# Copy manifests first for better Docker layer caching.
+COPY package.json package-lock.json* ./
+RUN npm install
+
+# Copy the rest of the source (overridden by bind mount when run via compose).
+COPY . .
+
+EXPOSE 3000
+
+# Generate Prisma client at start (schema may have changed since the build).
+# Then run `npm run dev` for HMR.
+CMD ["sh", "-c", "npx prisma generate && npm run dev"]
