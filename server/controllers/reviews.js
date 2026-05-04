@@ -136,8 +136,31 @@ const createReview = asyncHandler(async (req, res) => {
   res.status(201).json({ review: created });
 });
 
+const deleteReview = asyncHandler(async (req, res) => {
+  const { id } = req.params;
+  const { userId } = req.body || {};
+
+  if (!userId || typeof userId !== "string") {
+    throw new AppError("userId is required", 400);
+  }
+
+  const review = await prisma.review.findUnique({ where: { id } });
+  if (!review) throw new AppError("Review not found", 404);
+  if (review.userId !== userId) {
+    throw new AppError("You can only delete your own review", 403);
+  }
+
+  await prisma.$transaction(async (tx) => {
+    await tx.review.delete({ where: { id } });
+    await recomputeProductRating(review.productId, tx);
+  });
+
+  res.status(200).json({ ok: true });
+});
+
 module.exports = {
   listReviewsForProduct,
   getUserReviewForProduct,
   createReview,
+  deleteReview,
 };

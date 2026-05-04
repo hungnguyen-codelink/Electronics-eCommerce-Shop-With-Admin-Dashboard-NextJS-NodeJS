@@ -187,6 +187,63 @@ async function run() {
     });
     assert.strictEqual(r.status, 400);
     console.log("✓ comment > 2000 chars => 400");
+
+    // Capture the freshly created review id for delete cases.
+    let listResp = await fetch(
+      `${BASE}/api/reviews/product/${product.id}/user/${users[12].id}`
+    );
+    const userReview = (await listResp.json()).review;
+    assert.ok(userReview && userReview.id, "user review present for delete");
+
+    // Case 12: delete by a different user => 403, row remains.
+    r = await fetch(`${BASE}/api/reviews/${userReview.id}`, {
+      method: "DELETE",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ userId: users[0].id }),
+    });
+    assert.strictEqual(r.status, 403);
+    let stillThere = await prisma.review.findUnique({
+      where: { id: userReview.id },
+    });
+    assert.ok(stillThere, "review still present after 403");
+    console.log("✓ delete by other user => 403");
+
+    // Case 13: delete by author => 200, row gone, rating recomputed.
+    r = await fetch(`${BASE}/api/reviews/${userReview.id}`, {
+      method: "DELETE",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ userId: users[12].id }),
+    });
+    assert.strictEqual(r.status, 200);
+    stillThere = await prisma.review.findUnique({
+      where: { id: userReview.id },
+    });
+    assert.strictEqual(stillThere, null);
+    console.log("✓ delete by author => 200, row gone");
+
+    // Case 14: missing review => 404.
+    r = await fetch(`${BASE}/api/reviews/does-not-exist`, {
+      method: "DELETE",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ userId: users[12].id }),
+    });
+    assert.strictEqual(r.status, 404);
+    console.log("✓ delete missing review => 404");
+
+    // Case 15: delete-then-recreate flow (Q4 acceptance test).
+    // users[12] just deleted their review; they should be able to post a new one.
+    r = await fetch(`${BASE}/api/reviews`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        productId: product.id,
+        userId: users[12].id,
+        rating: 3,
+        comment: "second take",
+      }),
+    });
+    assert.strictEqual(r.status, 201);
+    console.log("✓ delete-then-recreate succeeds");
   } finally {
     await cleanup(ctx);
     await prisma.$disconnect();
