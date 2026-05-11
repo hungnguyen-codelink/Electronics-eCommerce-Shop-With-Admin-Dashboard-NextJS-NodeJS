@@ -298,3 +298,41 @@ docker compose up -d --build <nextjs|express>
 - **`linux-musl` engine error from Prisma** — only happens if someone swaps
   the base image to Alpine. Stay on `node:20-bookworm-slim` (the default in
   this repo) and the default binary targets work.
+
+## Stripe payments (dev)
+
+The Express server expects Stripe **test-mode** credentials in `server/.env`:
+
+```bash
+STRIPE_SECRET_KEY=sk_test_...           # from https://dashboard.stripe.com/test/apikeys
+STRIPE_WEBHOOK_SECRET=whsec_...         # see below
+```
+
+### Local webhook delivery
+
+Stripe can't POST to `localhost`. Use the Stripe CLI to forward events:
+
+```bash
+brew install stripe/stripe-cli/stripe        # one-time
+stripe login                                  # one-time per machine
+stripe listen --forward-to http://localhost:3001/webhook/stripe
+# → copy the printed whsec_... into server/.env's STRIPE_WEBHOOK_SECRET, then restart the server
+```
+
+Trigger a synthetic event:
+
+```bash
+stripe trigger checkout.session.completed
+```
+
+Replay a real event for idempotency testing:
+
+```bash
+stripe events resend evt_...
+```
+
+### Going live (operational, not a code change)
+
+1. Create a live-mode webhook endpoint in the Stripe Dashboard pointing at `https://yourdomain.com/webhook/stripe`. Subscribe to `checkout.session.completed`, `checkout.session.expired`, `payment_intent.payment_failed`.
+2. In production secrets, set `STRIPE_SECRET_KEY=sk_live_...` and `STRIPE_WEBHOOK_SECRET` to the live endpoint's signing secret. Leave staging/dev on `sk_test_...`.
+3. Smoke-test with a $0.50 real charge, refund from the Dashboard.
