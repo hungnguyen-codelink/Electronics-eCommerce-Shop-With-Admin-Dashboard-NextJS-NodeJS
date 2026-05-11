@@ -3,6 +3,16 @@ const path = require('path');
 // Load env from server/.env then fallback to project root .env
 require('dotenv').config({ path: path.join(__dirname, '.env') });
 require('dotenv').config({ path: path.join(__dirname, '..', '.env') });
+
+// Validate Stripe env vars at boot — fail fast if missing.
+const REQUIRED_STRIPE_ENV = ['STRIPE_SECRET_KEY', 'STRIPE_WEBHOOK_SECRET'];
+for (const key of REQUIRED_STRIPE_ENV) {
+  if (!process.env[key]) {
+    console.error(`FATAL: missing required env var ${key}. See server/.env.`);
+    process.exit(1);
+  }
+}
+
 const bcrypt = require('bcryptjs');
 const fileUpload = require("express-fileupload");
 const productsRouter = require("./routes/products");
