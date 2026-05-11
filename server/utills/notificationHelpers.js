@@ -90,7 +90,7 @@ const createOrderUpdateNotification = async (userId, orderStatus, orderId, total
 /**
  * Create a payment status notification
  */
-const createPaymentNotification = async (userId, paymentStatus, amount, orderId) => {
+const createPaymentNotification = async (userId, paymentStatus, amount, orderId, client = null) => {
   try {
     const statusMessages = {
       'success': {
@@ -118,7 +118,7 @@ const createPaymentNotification = async (userId, paymentStatus, amount, orderId)
 
     const notificationId = await generateId();
 
-    const notification = await prisma.notification.create({
+    const notification = await (client || prisma).notification.create({
       data: {
         id: notificationId,
         userId: userId,

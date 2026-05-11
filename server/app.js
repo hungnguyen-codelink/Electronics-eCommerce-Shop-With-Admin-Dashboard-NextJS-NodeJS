@@ -105,8 +105,15 @@ const corsOptions = {
   credentials: true, // Allow cookies and authorization headers
 };
 
-// Apply general rate limiting to all routes
-app.use(generalLimiter);
+// Apply general rate limiting to all routes, but bypass webhook
+app.use((req, res, next) => {
+  if (req.path === '/webhook/stripe') return next();
+  return generalLimiter(req, res, next);
+});
+
+// Mount Stripe webhook BEFORE express.json() so raw body is preserved
+const stripeWebhookRouter = require('./routes/stripeWebhook');
+app.use('/webhook/stripe', stripeWebhookRouter);
 
 app.use(express.json());
 app.use(cors(corsOptions));
