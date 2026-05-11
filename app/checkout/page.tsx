@@ -237,34 +237,22 @@ const CheckoutPage = () => {
 
       console.log(" All products added successfully!");
 
-      // Clear form and cart
-      setCheckoutForm({
-        name: "",
-        lastname: "",
-        phone: "",
-        email: "",
-        company: "",
-        adress: "",
-        apartment: "",
-        city: "",
-        country: "",
-        postalCode: "",
-        orderNotice: "",
-      });
-      clearCart();
-      
-      // Refresh notification count if user is logged in
-      try {
-        // This will trigger a refresh of notifications in the background
-        window.dispatchEvent(new CustomEvent('orderCompleted'));
-      } catch (error) {
-        console.log('Note: Could not trigger notification refresh');
+      // Hand off to Stripe Checkout.
+      const sessionResp = await apiClient.post("/api/checkout/create-session", { orderId });
+      if (!sessionResp.ok) {
+        const errText = await sessionResp.text();
+        console.error("❌ /api/checkout/create-session failed:", sessionResp.status, errText);
+        toast.error("Could not start payment. Please try again.");
+        return;
       }
-      
-      toast.success("Order created successfully! You will be contacted for payment.");
-      setTimeout(() => {
-        router.push("/");
-      }, 1000);
+      const { url } = await sessionResp.json();
+      if (!url) {
+        toast.error("Payment service returned no URL.");
+        return;
+      }
+      // Hard navigation to the Stripe-hosted page. Cart is NOT cleared here —
+      // /checkout/success will clear it once paymentStatus is confirmed 'paid'.
+      window.location.assign(url);
     } catch (error: any) {
       console.error("💥 Error in makePurchase:", error);
       
@@ -522,27 +510,6 @@ const CheckoutPage = () => {
                     disabled={isSubmitting}
                     className="block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm disabled:bg-gray-100 disabled:cursor-not-allowed"
                   />
-                </div>
-              </div>
-            </section>
-
-            {/* Payment Notice */}
-            <section className="mt-10">
-              <div className="bg-blue-50 border border-blue-200 rounded-md p-4">
-                <div className="flex">
-                  <div className="flex-shrink-0">
-                    <svg className="h-5 w-5 text-blue-400" viewBox="0 0 20 20" fill="currentColor">
-                      <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd" />
-                    </svg>
-                  </div>
-                  <div className="ml-3">
-                    <h3 className="text-sm font-medium text-blue-800">
-                      Payment Information
-                    </h3>
-                    <div className="mt-2 text-sm text-blue-700">
-                      <p>Payment will be processed after order confirmation. You will be contacted for payment details.</p>
-                    </div>
-                  </div>
                 </div>
               </div>
             </section>
