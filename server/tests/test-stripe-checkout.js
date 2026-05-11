@@ -93,6 +93,19 @@ async function main() {
       process.exit(1);
     }
     console.log('✅ Re-entrancy: same sessionId returned');
+
+    // 4) Look up the session — should return paymentStatus="unpaid" since no webhook fired yet.
+    const lookup = await fetch(`${API}/api/checkout/session/${sessionId}`);
+    if (!lookup.ok) {
+      console.error('❌ GET session lookup failed:', lookup.status, await lookup.text());
+      process.exit(1);
+    }
+    const lookupBody = await lookup.json();
+    if (lookupBody.paymentStatus !== 'unpaid' || lookupBody.orderId !== orderId) {
+      console.error('❌ unexpected lookup body:', lookupBody);
+      process.exit(1);
+    }
+    console.log('✅ GET /api/checkout/session/:id returned paymentStatus=unpaid');
   } else {
     // Non-2xx response - Stripe rejected with auth error (expected with placeholder key)
     const body = JSON.parse(text);
@@ -104,6 +117,20 @@ async function main() {
       process.exit(1);
     }
   }
+
+  // 5) Wiring check: GET with a bogus session id must return 404 "Session not found"
+  //    (works regardless of whether STRIPE_SECRET_KEY is real or placeholder).
+  const wiringRes = await fetch(`${API}/api/checkout/session/cs_test_bogus_does_not_exist`);
+  if (wiringRes.status !== 404) {
+    console.error('❌ GET wiring check expected 404, got:', wiringRes.status, await wiringRes.text());
+    process.exit(1);
+  }
+  const wiringBody = await wiringRes.json();
+  if (!wiringBody.error || !wiringBody.error.includes('Session not found')) {
+    console.error('❌ GET wiring check: expected error "Session not found", got:', wiringBody);
+    process.exit(1);
+  }
+  console.log('✅ GET /api/checkout/session/:id is mounted (404 for bogus id)');
 }
 
 main().catch((e) => { console.error(e); process.exit(1); });

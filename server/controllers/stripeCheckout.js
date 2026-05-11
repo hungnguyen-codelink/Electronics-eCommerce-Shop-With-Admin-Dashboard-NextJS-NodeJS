@@ -63,4 +63,17 @@ const createCheckoutSession = asyncHandler(async (req, res) => {
   res.json({ url: session.url, sessionId: session.id });
 });
 
-module.exports = { createCheckoutSession };
+const getCheckoutSession = asyncHandler(async (req, res) => {
+  const { id } = req.params;
+  if (!id) throw new AppError('session id required', 400);
+
+  const order = await prisma.customer_order.findUnique({
+    where: { stripeSessionId: id },
+    select: { id: true, paymentStatus: true },
+  });
+  if (!order) throw new AppError('Session not found', 404);
+
+  res.json({ orderId: order.id, paymentStatus: order.paymentStatus });
+});
+
+module.exports = { createCheckoutSession, getCheckoutSession };
