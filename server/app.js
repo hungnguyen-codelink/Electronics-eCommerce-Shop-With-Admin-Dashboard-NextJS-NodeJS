@@ -29,6 +29,7 @@ const notificationsRouter = require('./routes/notifications');
 const merchantRouter = require('./routes/merchant'); // Add this line
 const bulkUploadRouter = require('./routes/bulkUpload');
 const reviewsRouter = require("./routes/reviews");
+const checkoutRouter = require('./routes/checkout');
 var cors = require("cors");
 
 // Import logging middleware
@@ -116,6 +117,7 @@ app.use("/api/users", userManagementLimiter);
 app.use("/api/search", searchLimiter);
 app.use("/api/orders", orderLimiter);
 app.use("/api/order-product", orderLimiter);
+app.use("/api/checkout", orderLimiter);
 app.use("/api/images", uploadLimiter);
 app.use("/api/main-image", uploadLimiter);
 // app.use("/api/wishlist", wishlistLimiter);
@@ -137,6 +139,7 @@ app.use("/api/users", userRouter);
 app.use("/api/search", searchRouter);
 app.use("/api/orders", orderRouter);
 app.use('/api/order-product', orderProductRouter);
+app.use('/api/checkout', checkoutRouter);
 app.use("/api/slugs", slugRouter);
 // app.use("/api/wishlist", wishlistRouter);
 app.use("/api/notifications", notificationsRouter);

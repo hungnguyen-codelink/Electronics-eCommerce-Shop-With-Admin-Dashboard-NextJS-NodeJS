@@ -119,8 +119,17 @@ const handleServerError = (error, res, context = "") => {
     return;
   }
 
-  // Prisma errors
-  if (error && typeof error === "object" && "code" in error) {
+  // Stripe errors (check for StripeAPIError or similar)
+  if (error && typeof error === "object" && (error.name === "StripeAPIError" || error.message?.includes("Invalid API Key"))) {
+    res.status(error.statusCode || 402).json({
+      error: error.message,
+      timestamp,
+    });
+    return;
+  }
+
+  // Prisma errors (Prisma-specific codes start with P)
+  if (error && typeof error === "object" && "code" in error && typeof error.code === "string" && error.code.startsWith("P")) {
     const errorResponse = handlePrismaError(error);
     const statusCode = getStatusCodeFromPrismaError(error);
 
