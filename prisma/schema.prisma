@@ -69,6 +69,11 @@ model Customer_order {
   country     String
   orderNotice String?
   total       Int
+  paymentStatus           PaymentStatus @default(unpaid)
+  stripeSessionId         String?       @unique
+  stripePaymentIntentId   String?       @unique
+  paidAt                  DateTime?
+  checkoutAttempts        Int           @default(0)
   products    customer_order_product[]
 }
 
@@ -190,6 +195,13 @@ enum BulkUploadItemStatus {
   CREATED
   UPDATED
   ERROR
+}
+
+enum PaymentStatus {
+  unpaid
+  paid
+  failed
+  expired
 }
 
 model Review {

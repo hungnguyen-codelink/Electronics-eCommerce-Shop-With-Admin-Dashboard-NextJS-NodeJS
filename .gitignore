@@ -43,6 +43,9 @@ next-env.d.ts
 *.dump
 *.backup
 
+# But allow Prisma migrations
+!prisma/migrations/**/*.sql
+
 # Logs
 *.log
 logs/
@@ -59,3 +62,4 @@ Thumbs.db
 
 # git worktrees
 .worktrees/
+.brv
