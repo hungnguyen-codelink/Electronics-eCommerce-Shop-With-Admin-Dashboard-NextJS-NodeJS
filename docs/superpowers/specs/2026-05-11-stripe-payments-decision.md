@@ -46,3 +46,15 @@ Integrate **Stripe Checkout** (hosted redirect flow) on the Express side. Preser
 - **Turned out:** `server/controllers/customer_orders.js` does `new PrismaClient()` directly — a known violation already flagged in byterover's architectural-invariants entry for the Prisma singleton pattern.
 - **Chose:** Fix it as part of the duplicate-detection adjustment task in the plan (we're touching the file anyway).
 - **Why:** Touching a file that violates a documented invariant without fixing the violation perpetuates the issue. Cheap to fix in the same commit.
+
+### 2026-05-11 — `handleServerError` Prisma branch misroutes Stripe errors
+- **Plan assumed:** Stripe API errors thrown from controllers would fall cleanly to the generic 500 handler.
+- **Turned out:** Stripe errors carry a `code` property too (e.g. `'authentication_error'`, `'card_declined'`), so `"code" in error` matched and routed them through `handlePrismaError`, surfacing as "Database operation failed" 500s.
+- **Chose:** Add a `error.code.startsWith("P")` guard to the Prisma branch (Prisma codes are always P-prefixed: `P2002`, `P2025`, …). Stripe errors then fall through to the generic 500, where they get logged but not echoed to the client. Rejected the alternative of adding a dedicated Stripe branch — it would have leaked raw Stripe `error.message` to clients (including potential API key fragments) and broken the codebase's "expected failures throw AppError; unexpected fall to 500" pattern.
+- **Why:** The Prisma guard is a narrow, defensible bug fix that any future third-party SDK with `code`-bearing errors will also benefit from. Bespoke per-SDK branches in `handleServerError` would invite leaky-by-default error UX.
+
+### 2026-05-11 — `createPaymentNotification` arg order differed from the plan
+- **Plan assumed:** signature was `(userId, status, orderId, total, client)`.
+- **Turned out:** existing helper at `server/utills/notificationHelpers.js:93` is `(userId, paymentStatus, amount, orderId)` — `amount` before `orderId`. `grep -rn` showed zero callers anywhere (confirmed dormant scaffolding as the decision note noted).
+- **Chose:** Keep the existing helper's arg order, add optional `client = null` as the 5th argument, and use `(client || prisma).notification.create(...)` inside (mirroring the `recomputeProductRating(productId, tx)` pattern from CLAUDE.md). Adapt the webhook's three call sites to pass `(userId, paymentStatus, order.total, order.id, tx)`.
+- **Why:** No callers means we have freedom to choose; matching the helper's existing shape preserves the surface anyone reading `notificationHelpers.js` standalone would expect. Changing the helper to match the plan's order would have created a no-callers refactor for cosmetic reasons.

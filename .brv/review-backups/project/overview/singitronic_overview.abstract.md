@@ -1,0 +1,1 @@
+Singitronic is an open-source, full-stack eCommerce platform built with Next.js, Node.js, and MySQL using a Waterfall development model, supported by a comprehensive 40-page engineering report and over 350 test cases.
