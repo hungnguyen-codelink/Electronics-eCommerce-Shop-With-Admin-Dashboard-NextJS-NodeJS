@@ -119,8 +119,8 @@ const handleServerError = (error, res, context = "") => {
     return;
   }
 
-  // Prisma errors
-  if (error && typeof error === "object" && "code" in error) {
+  // Prisma errors (Prisma-specific codes start with P)
+  if (error && typeof error === "object" && "code" in error && typeof error.code === "string" && error.code.startsWith("P")) {
     const errorResponse = handlePrismaError(error);
     const statusCode = getStatusCodeFromPrismaError(error);
 

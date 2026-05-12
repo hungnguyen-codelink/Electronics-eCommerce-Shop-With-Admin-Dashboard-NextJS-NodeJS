@@ -27,6 +27,7 @@ model Product {
   category       Category                 @relation(fields: [categoryId], references: [id], onDelete: Cascade)
   customerOrders customer_order_product[]
   Wishlist       Wishlist[]
+  reviews        Review[]
 
   merchantId     String
   merchant       Merchant @relation(fields: [merchantId], references: [id])
@@ -47,6 +48,7 @@ model User {
   role          String?        @default("user")
   Wishlist      Wishlist[]
   notifications Notification[]
+  reviews       Review[]
   // Back relation for bulk upload batches
   bulkUploadBatches bulk_upload_batch[] @relation("UserBatches")
 }
@@ -67,6 +69,11 @@ model Customer_order {
   country     String
   orderNotice String?
   total       Int
+  paymentStatus           PaymentStatus @default(unpaid)
+  stripeSessionId         String?       @unique
+  stripePaymentIntentId   String?       @unique
+  paidAt                  DateTime?
+  checkoutAttempts        Int           @default(0)
   products    customer_order_product[]
 }
 
@@ -188,4 +195,26 @@ enum BulkUploadItemStatus {
   CREATED
   UPDATED
   ERROR
+}
+
+enum PaymentStatus {
+  unpaid
+  paid
+  failed
+  expired
+}
+
+model Review {
+  id        String   @id @default(uuid())
+  productId String
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  rating    Int
+  comment   String?  @db.Text
+  createdAt DateTime @default(now())
+
+  @@unique([productId, userId])
+  @@index([productId, createdAt])
+  @@index([userId])
 }

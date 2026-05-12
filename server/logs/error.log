@@ -28,3 +28,168 @@
 ::1 - - [05/Oct/2025:13:24:41 +0000] "POST /api/products HTTP/1.1" 400 80 "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36" reqId=snkBG6Zd userId=anonymous
 ::1 - - [05/Oct/2025:13:25:29 +0000] "POST /api/products HTTP/1.1" 500 97 "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36" reqId=aOyqyDpR userId=anonymous
 ::1 - - [05/Oct/2025:13:35:21 +0000] "POST /api/products HTTP/1.1" 400 80 "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36" reqId=j3e6LIZl userId=anonymous
+::ffff:192.168.65.1 - - [04/May/2026:03:57:08 +0000] "GET / HTTP/1.1" 404 50 "-" "curl/8.7.1" reqId=psiNL9G5 userId=anonymous
+::ffff:142.250.198.170 - - [04/May/2026:04:20:33 +0000] "GET /api/wishlist/cMAi0eX8gfd6Wt7fh0pLN HTTP/1.1" 404 50 "http://localhost:3000/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36" reqId=-8Iy4TF2 userId=anonymous
+::ffff:142.250.198.170 - - [04/May/2026:04:43:07 +0000] "GET /api/wishlist/cMAi0eX8gfd6Wt7fh0pLN HTTP/1.1" 404 50 "http://localhost:3000/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36" reqId=HmZrsUuS userId=anonymous
+::ffff:142.250.198.170 - - [04/May/2026:04:44:25 +0000] "GET / HTTP/1.1" 404 50 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36" reqId=XoV7Ooo3 userId=anonymous
+::ffff:142.250.198.170 - - [04/May/2026:04:44:25 +0000] "GET /favicon.ico HTTP/1.1" 404 50 "http://localhost:3001/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36" reqId=RKJA3--Q userId=anonymous
+::ffff:142.250.198.170 - - [04/May/2026:04:44:29 +0000] "GET /docs HTTP/1.1" 404 50 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36" reqId=1WIh63mA userId=anonymous
+::ffff:142.250.198.170 - - [04/May/2026:04:47:23 +0000] "GET /api/reviews/product/a97ac1db-8569-4b3b-b755-2f6426128961?offset=0&limit=5 HTTP/1.1" 404 50 "-" "node" reqId=AhPkgA9x userId=anonymous
+::ffff:142.250.198.170 - - [04/May/2026:04:47:49 +0000] "GET /api/reviews/product/does-not-exist HTTP/1.1" 404 68 "-" "node" reqId=NC0fw80Q userId=anonymous
+::ffff:142.250.198.170 - - [04/May/2026:04:49:09 +0000] "GET /api/reviews/product/does-not-exist HTTP/1.1" 404 68 "-" "node" reqId=oLpCqm9R userId=anonymous
+::ffff:142.250.198.170 - - [04/May/2026:04:51:57 +0000] "GET /api/reviews/product/does-not-exist HTTP/1.1" 404 68 "-" "node" reqId=uj8PhgDd userId=anonymous
+::ffff:142.250.198.170 - - [04/May/2026:04:51:57 +0000] "GET /api/reviews/product/767185a8-fc8e-4090-bf3f-cf47213ae28d/user/b97b50f2-58be-43b1-b3d6-3b3d266f9379 HTTP/1.1" 404 50 "-" "node" reqId=3VXrt3DV userId=anonymous
+::ffff:142.250.198.170 - - [04/May/2026:04:52:14 +0000] "GET /api/reviews/product/does-not-exist HTTP/1.1" 404 68 "-" "node" reqId=CS74v7aN userId=anonymous
+::ffff:142.250.198.170 - - [04/May/2026:04:53:20 +0000] "GET /api/reviews/product/does-not-exist HTTP/1.1" 404 68 "-" "node" reqId=0Hxj7DAY userId=anonymous
+::ffff:142.250.198.170 - - [04/May/2026:04:56:35 +0000] "GET /api/reviews/product/does-not-exist HTTP/1.1" 404 68 "-" "node" reqId=wN_en2En userId=anonymous
+::ffff:142.250.198.170 - - [04/May/2026:04:56:35 +0000] "POST /api/reviews HTTP/1.1" 404 50 "-" "node" reqId=uFoMGLgL userId=anonymous
+::ffff:142.250.198.170 - - [04/May/2026:04:56:52 +0000] "GET /api/reviews/product/does-not-exist HTTP/1.1" 404 68 "-" "node" reqId=g94O6E77 userId=anonymous
+::ffff:142.250.198.170 - - [04/May/2026:04:56:52 +0000] "POST /api/reviews HTTP/1.1" 400 92 "-" "node" reqId=od7rPNw4 userId=anonymous
+::ffff:142.250.198.170 - - [04/May/2026:04:56:52 +0000] "POST /api/reviews HTTP/1.1" 404 65 "-" "node" reqId=MQnlRvFv userId=anonymous
+::ffff:142.250.198.170 - - [04/May/2026:04:56:52 +0000] "POST /api/reviews HTTP/1.1" 409 89 "-" "node" reqId=52-Sy_UQ userId=anonymous
+::ffff:142.250.198.170 - - [04/May/2026:04:56:52 +0000] "POST /api/reviews HTTP/1.1" 400 67 "-" "node" reqId=n702jFJG userId=anonymous
+::ffff:142.250.198.170 - - [04/May/2026:04:59:35 +0000] "GET /api/reviews/product/does-not-exist HTTP/1.1" 404 68 "-" "node" reqId=QkV4EMEo userId=anonymous
+::ffff:142.250.198.170 - - [04/May/2026:04:59:35 +0000] "POST /api/reviews HTTP/1.1" 400 92 "-" "node" reqId=Qed6xNL5 userId=anonymous
+::ffff:142.250.198.170 - - [04/May/2026:04:59:35 +0000] "POST /api/reviews HTTP/1.1" 404 65 "-" "node" reqId=-pSa9R_n userId=anonymous
+::ffff:142.250.198.170 - - [04/May/2026:04:59:35 +0000] "POST /api/reviews HTTP/1.1" 409 89 "-" "node" reqId=mXLy6WZh userId=anonymous
+::ffff:142.250.198.170 - - [04/May/2026:04:59:35 +0000] "POST /api/reviews HTTP/1.1" 400 67 "-" "node" reqId=TU_jZWH6 userId=anonymous
+::ffff:142.250.198.170 - - [04/May/2026:05:01:57 +0000] "GET /api/reviews/product/does-not-exist HTTP/1.1" 404 68 "-" "node" reqId=hWy2m10- userId=anonymous
+::ffff:142.250.198.170 - - [04/May/2026:05:01:57 +0000] "POST /api/reviews HTTP/1.1" 400 92 "-" "node" reqId=u-iPqE83 userId=anonymous
+::ffff:142.250.198.170 - - [04/May/2026:05:01:57 +0000] "POST /api/reviews HTTP/1.1" 404 65 "-" "node" reqId=u8jKFT4b userId=anonymous
+::ffff:142.250.198.170 - - [04/May/2026:05:01:57 +0000] "POST /api/reviews HTTP/1.1" 409 89 "-" "node" reqId=A0ib8Ml8 userId=anonymous
+::ffff:142.250.198.170 - - [04/May/2026:05:01:57 +0000] "POST /api/reviews HTTP/1.1" 400 67 "-" "node" reqId=cT-e0VqZ userId=anonymous
+::ffff:142.250.198.170 - - [04/May/2026:05:01:57 +0000] "DELETE /api/reviews/03a9dabc-9a7a-45cd-ba65-81ef566e034b HTTP/1.1" 404 50 "-" "node" reqId=0sMCl5LN userId=anonymous
+::ffff:142.250.198.170 - - [04/May/2026:05:02:15 +0000] "GET /api/reviews/product/does-not-exist HTTP/1.1" 404 68 "-" "node" reqId=xU-vJ7cz userId=anonymous
+::ffff:142.250.198.170 - - [04/May/2026:05:02:15 +0000] "POST /api/reviews HTTP/1.1" 400 92 "-" "node" reqId=PzBA712O userId=anonymous
+::ffff:142.250.198.170 - - [04/May/2026:05:02:15 +0000] "POST /api/reviews HTTP/1.1" 404 65 "-" "node" reqId=hcndy540 userId=anonymous
+::ffff:142.250.198.170 - - [04/May/2026:05:02:15 +0000] "POST /api/reviews HTTP/1.1" 409 89 "-" "node" reqId=O8dhb5Nk userId=anonymous
+::ffff:142.250.198.170 - - [04/May/2026:05:02:15 +0000] "POST /api/reviews HTTP/1.1" 400 67 "-" "node" reqId=tW50Irwu userId=anonymous
+::ffff:142.250.198.170 - - [04/May/2026:05:02:15 +0000] "DELETE /api/reviews/9c6545ef-a474-41a2-98a0-2222a04e63fc HTTP/1.1" 403 86 "-" "node" reqId=oGjM_ISQ userId=anonymous
+::ffff:142.250.198.170 - - [04/May/2026:05:02:15 +0000] "DELETE /api/reviews/does-not-exist HTTP/1.1" 404 67 "-" "node" reqId=crre9SQQ userId=anonymous
+::ffff:142.250.198.170 - - [04/May/2026:05:03:00 +0000] "GET /api/reviews/product/does-not-exist HTTP/1.1" 404 68 "-" "node" reqId=vFQkIutj userId=anonymous
+::ffff:142.250.198.170 - - [04/May/2026:05:03:00 +0000] "POST /api/reviews HTTP/1.1" 400 92 "-" "node" reqId=wsjxXmfk userId=anonymous
+::ffff:142.250.198.170 - - [04/May/2026:05:03:00 +0000] "POST /api/reviews HTTP/1.1" 404 65 "-" "node" reqId=02rsmLqB userId=anonymous
+::ffff:142.250.198.170 - - [04/May/2026:05:03:00 +0000] "POST /api/reviews HTTP/1.1" 409 89 "-" "node" reqId=Bp4nyIfb userId=anonymous
+::ffff:142.250.198.170 - - [04/May/2026:05:03:00 +0000] "POST /api/reviews HTTP/1.1" 400 67 "-" "node" reqId=FMvP3KRG userId=anonymous
+::ffff:142.250.198.170 - - [04/May/2026:05:03:00 +0000] "DELETE /api/reviews/d4094c11-ebb3-46ac-8975-ed03dcccfca4 HTTP/1.1" 403 86 "-" "node" reqId=jd9swCW0 userId=anonymous
+::ffff:142.250.198.170 - - [04/May/2026:05:03:00 +0000] "DELETE /api/reviews/does-not-exist HTTP/1.1" 404 67 "-" "node" reqId=7BgFU9JX userId=anonymous
+::ffff:142.250.198.170 - - [04/May/2026:05:04:58 +0000] "GET /api/reviews/product/does-not-exist HTTP/1.1" 404 68 "-" "node" reqId=l_htNXvI userId=anonymous
+::ffff:142.250.198.170 - - [04/May/2026:05:04:58 +0000] "POST /api/reviews HTTP/1.1" 400 92 "-" "node" reqId=vTPVAqim userId=anonymous
+::ffff:142.250.198.170 - - [04/May/2026:05:04:58 +0000] "POST /api/reviews HTTP/1.1" 404 65 "-" "node" reqId=Jdy_JRRp userId=anonymous
+::ffff:142.250.198.170 - - [04/May/2026:05:04:58 +0000] "POST /api/reviews HTTP/1.1" 409 89 "-" "node" reqId=BturA2TU userId=anonymous
+::ffff:142.250.198.170 - - [04/May/2026:05:04:58 +0000] "POST /api/reviews HTTP/1.1" 400 67 "-" "node" reqId=ThQa2QFX userId=anonymous
+::ffff:142.250.198.170 - - [04/May/2026:05:04:58 +0000] "DELETE /api/reviews/7a7b467c-4c97-4b18-a977-3c401ea64a97 HTTP/1.1" 403 86 "-" "node" reqId=JYvkB_lf userId=anonymous
+::ffff:142.250.198.170 - - [04/May/2026:05:04:58 +0000] "DELETE /api/reviews/does-not-exist HTTP/1.1" 404 67 "-" "node" reqId=-VExeQuN userId=anonymous
+::ffff:142.250.198.170 - - [04/May/2026:05:05:10 +0000] "GET /api/reviews/product/does-not-exist HTTP/1.1" 404 68 "-" "node" reqId=4nK5eeAX userId=anonymous
+::ffff:142.250.198.170 - - [04/May/2026:05:05:10 +0000] "POST /api/reviews HTTP/1.1" 400 92 "-" "node" reqId=aqWASReE userId=anonymous
+::ffff:142.250.198.170 - - [04/May/2026:05:05:10 +0000] "POST /api/reviews HTTP/1.1" 404 65 "-" "node" reqId=BNmanZYG userId=anonymous
+::ffff:142.250.198.170 - - [04/May/2026:05:05:10 +0000] "POST /api/reviews HTTP/1.1" 409 89 "-" "node" reqId=AnGe9B1t userId=anonymous
+::ffff:142.250.198.170 - - [04/May/2026:05:05:10 +0000] "POST /api/reviews HTTP/1.1" 400 67 "-" "node" reqId=X2Qpz-TK userId=anonymous
+::ffff:142.250.198.170 - - [04/May/2026:05:05:10 +0000] "DELETE /api/reviews/0196ffd7-f74d-4bb9-bc4a-fee3d4af1bb6 HTTP/1.1" 403 86 "-" "node" reqId=mdjz8vyo userId=anonymous
+::ffff:142.250.198.170 - - [04/May/2026:05:05:10 +0000] "DELETE /api/reviews/does-not-exist HTTP/1.1" 404 67 "-" "node" reqId=NFo7jqsw userId=anonymous
+::ffff:142.250.198.170 - - [04/May/2026:05:10:20 +0000] "GET /api/reviews/product/does-not-exist HTTP/1.1" 404 68 "-" "node" reqId=W7QzWzmj userId=anonymous
+::ffff:142.250.198.170 - - [04/May/2026:05:10:20 +0000] "POST /api/reviews HTTP/1.1" 400 92 "-" "node" reqId=uaRHcg1v userId=anonymous
+::ffff:142.250.198.170 - - [04/May/2026:05:10:20 +0000] "POST /api/reviews HTTP/1.1" 404 65 "-" "node" reqId=AKz2Y-_E userId=anonymous
+::ffff:142.250.198.170 - - [04/May/2026:05:10:20 +0000] "POST /api/reviews HTTP/1.1" 409 89 "-" "node" reqId=jg2ln5w9 userId=anonymous
+::ffff:142.250.198.170 - - [04/May/2026:05:10:20 +0000] "POST /api/reviews HTTP/1.1" 400 67 "-" "node" reqId=iZMIgCv9 userId=anonymous
+::ffff:142.250.198.170 - - [04/May/2026:05:10:20 +0000] "DELETE /api/reviews/ff0ae1d4-2703-4a80-9cfb-518936ea606e HTTP/1.1" 403 86 "-" "node" reqId=-BKh0SNM userId=anonymous
+::ffff:142.250.198.170 - - [04/May/2026:05:10:20 +0000] "DELETE /api/reviews/does-not-exist HTTP/1.1" 404 67 "-" "node" reqId=qTD9loi8 userId=anonymous
+::ffff:142.250.198.170 - - [04/May/2026:05:10:24 +0000] "POST /api/products HTTP/1.1" 400 85 "-" "node" reqId=i0OftZRe userId=anonymous
+::ffff:142.250.198.170 - - [04/May/2026:05:10:32 +0000] "GET /api/reviews/product/nonexistent HTTP/1.1" 404 68 "-" "curl/8.7.1" reqId=pEmTOnyK userId=anonymous
+::ffff:142.250.198.170 - - [04/May/2026:05:14:41 +0000] "GET /api/wishlist/cMAi0eX8gfd6Wt7fh0pLN HTTP/1.1" 404 50 "http://localhost:3000/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36" reqId=aVnBM7FE userId=anonymous
+::ffff:142.250.198.170 - - [04/May/2026:05:15:16 +0000] "GET /api/wishlist/cMAi0eX8gfd6Wt7fh0pLN HTTP/1.1" 404 50 "http://localhost:3000/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36" reqId=CtSD_pbr userId=anonymous
+::ffff:142.250.198.170 - - [04/May/2026:05:16:32 +0000] "GET /api/wishlist/cMAi0eX8gfd6Wt7fh0pLN HTTP/1.1" 404 50 "http://localhost:3000/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36" reqId=7nETgnpw userId=anonymous
+::ffff:142.250.198.170 - - [04/May/2026:05:16:33 +0000] "GET /api/wishlist/cMAi0eX8gfd6Wt7fh0pLN HTTP/1.1" 404 50 "http://localhost:3000/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36" reqId=IWoE0-lm userId=anonymous
+::ffff:127.0.0.1 - - [11/May/2026:05:40:51 +0000] "POST /api/orders HTTP/1.1" 400 219 "-" "node" reqId=2Y4w09UL userId=anonymous
+::ffff:127.0.0.1 - - [11/May/2026:05:40:58 +0000] "POST /api/checkout/create-session HTTP/1.1" 404 50 "-" "node" reqId=5Lf-_mLJ userId=anonymous
+::ffff:127.0.0.1 - - [11/May/2026:05:41:27 +0000] "POST /api/checkout/create-session HTTP/1.1" 400 74 "-" "node" reqId=njz46IqE userId=anonymous
+::ffff:127.0.0.1 - - [11/May/2026:05:42:20 +0000] "POST /api/checkout/create-session HTTP/1.1" 500 110 "-" "node" reqId=8__P7joP userId=anonymous
+::ffff:127.0.0.1 - - [11/May/2026:05:42:41 +0000] "POST /api/checkout/create-session HTTP/1.1" 500 110 "-" "node" reqId=2dpcmWPY userId=anonymous
+::ffff:127.0.0.1 - - [11/May/2026:05:43:07 +0000] "POST /api/checkout/create-session HTTP/1.1" 500 97 "-" "node" reqId=1xzjjTjA userId=anonymous
+::ffff:127.0.0.1 - - [11/May/2026:05:43:19 +0000] "POST /api/checkout/create-session HTTP/1.1" 401 95 "-" "node" reqId=Nw2ii_p- userId=anonymous
+::ffff:127.0.0.1 - - [11/May/2026:05:43:27 +0000] "POST /api/checkout/create-session HTTP/1.1" 401 95 "-" "node" reqId=5_ZW6KG6 userId=anonymous
+::ffff:127.0.0.1 - - [11/May/2026:05:43:54 +0000] "POST /api/checkout/create-session HTTP/1.1" 401 95 "-" "node" reqId=LYxQhhCN userId=anonymous
+::ffff:127.0.0.1 - - [11/May/2026:05:46:28 +0000] "POST /api/checkout/create-session HTTP/1.1" 500 97 "-" "node" reqId=ypacU_Ei userId=anonymous
+::ffff:127.0.0.1 - - [11/May/2026:05:46:49 +0000] "POST /api/checkout/create-session HTTP/1.1" 500 97 "-" "node" reqId=4ZW4szEd userId=anonymous
+::ffff:127.0.0.1 - - [11/May/2026:05:49:50 +0000] "POST /api/checkout/create-session HTTP/1.1" 500 97 "-" "node" reqId=d2DiHjAE userId=anonymous
+::ffff:127.0.0.1 - - [11/May/2026:05:50:11 +0000] "POST /api/checkout/create-session HTTP/1.1" 500 97 "-" "node" reqId=vX02s_70 userId=anonymous
+::ffff:127.0.0.1 - - [11/May/2026:05:50:11 +0000] "GET /api/checkout/session/cs_test_bogus_does_not_exist HTTP/1.1" 404 68 "-" "node" reqId=fUriCjbA userId=anonymous
+::ffff:127.0.0.1 - - [11/May/2026:05:50:37 +0000] "POST /api/checkout/create-session HTTP/1.1" 500 97 "-" "node" reqId=Zw0g-lXM userId=anonymous
+::ffff:127.0.0.1 - - [11/May/2026:05:50:37 +0000] "GET /api/checkout/session/cs_test_bogus_does_not_exist HTTP/1.1" 404 68 "-" "node" reqId=JqqvQ6KI userId=anonymous
+::ffff:127.0.0.1 - - [11/May/2026:05:50:41 +0000] "POST /api/checkout/create-session HTTP/1.1" 500 97 "-" "node" reqId=9EUAAa7k userId=anonymous
+::ffff:127.0.0.1 - - [11/May/2026:05:50:41 +0000] "GET /api/checkout/session/cs_test_bogus_does_not_exist HTTP/1.1" 404 68 "-" "node" reqId=taEZCssn userId=anonymous
+::ffff:172.31.0.6 - - [11/May/2026:05:55:35 +0000] "POST /webhook/stripe HTTP/1.1" 400 475 "-" "curl/8.17.0" reqId=KQmph5tK userId=anonymous
+::ffff:172.31.0.6 - - [11/May/2026:05:55:41 +0000] "POST /webhook/stripe HTTP/1.1" 400 84 "-" "curl/8.17.0" reqId=K3jkVVNW userId=anonymous
+::ffff:172.31.0.6 - - [11/May/2026:05:55:47 +0000] "POST /webhook/stripe HTTP/1.1" 400 472 "-" "curl/8.17.0" reqId=E-FENy21 userId=anonymous
+::ffff:172.31.0.6 - - [11/May/2026:05:55:53 +0000] "POST /webhook/stripe HTTP/1.1" 400 472 "-" "curl/8.17.0" reqId=e8irVYzq userId=anonymous
+::ffff:172.31.0.6 - - [11/May/2026:05:55:53 +0000] "POST /webhook/stripe HTTP/1.1" 400 472 "-" "curl/8.17.0" reqId=LfMRMnZ- userId=anonymous
+::ffff:172.31.0.6 - - [11/May/2026:05:55:53 +0000] "POST /webhook/stripe HTTP/1.1" 400 472 "-" "curl/8.17.0" reqId=LK7xIcmP userId=anonymous
+::ffff:172.31.0.6 - - [11/May/2026:05:55:53 +0000] "POST /webhook/stripe HTTP/1.1" 400 472 "-" "curl/8.17.0" reqId=9xnJPY26 userId=anonymous
+::ffff:172.31.0.6 - - [11/May/2026:05:55:53 +0000] "POST /webhook/stripe HTTP/1.1" 400 472 "-" "curl/8.17.0" reqId=64as9gJL userId=anonymous
+::ffff:172.31.0.6 - - [11/May/2026:05:55:53 +0000] "POST /webhook/stripe HTTP/1.1" 400 472 "-" "curl/8.17.0" reqId=FBOuB-qC userId=anonymous
+::ffff:172.31.0.6 - - [11/May/2026:05:55:53 +0000] "POST /webhook/stripe HTTP/1.1" 400 472 "-" "curl/8.17.0" reqId=UAFt8BXG userId=anonymous
+::ffff:172.31.0.6 - - [11/May/2026:05:55:53 +0000] "POST /webhook/stripe HTTP/1.1" 400 472 "-" "curl/8.17.0" reqId=1Bv-H_4l userId=anonymous
+::ffff:172.31.0.6 - - [11/May/2026:05:55:53 +0000] "POST /webhook/stripe HTTP/1.1" 400 472 "-" "curl/8.17.0" reqId=dr7mxi74 userId=anonymous
+::ffff:172.31.0.6 - - [11/May/2026:05:55:53 +0000] "POST /webhook/stripe HTTP/1.1" 400 472 "-" "curl/8.17.0" reqId=63U6ghGy userId=anonymous
+::ffff:172.31.0.6 - - [11/May/2026:05:55:53 +0000] "POST /webhook/stripe HTTP/1.1" 400 472 "-" "curl/8.17.0" reqId=WtDhr61s userId=anonymous
+::ffff:172.31.0.6 - - [11/May/2026:05:55:53 +0000] "POST /webhook/stripe HTTP/1.1" 400 472 "-" "curl/8.17.0" reqId=gkFnLNjW userId=anonymous
+::ffff:172.31.0.6 - - [11/May/2026:05:55:53 +0000] "POST /webhook/stripe HTTP/1.1" 400 472 "-" "curl/8.17.0" reqId=XHwW5DZN userId=anonymous
+::ffff:172.31.0.6 - - [11/May/2026:05:55:53 +0000] "POST /webhook/stripe HTTP/1.1" 400 472 "-" "curl/8.17.0" reqId=YstY5oaF userId=anonymous
+::ffff:172.31.0.6 - - [11/May/2026:05:55:53 +0000] "POST /webhook/stripe HTTP/1.1" 400 472 "-" "curl/8.17.0" reqId=XvObISWX userId=anonymous
+::ffff:172.31.0.6 - - [11/May/2026:05:55:53 +0000] "POST /webhook/stripe HTTP/1.1" 400 472 "-" "curl/8.17.0" reqId=hh1RXlm1 userId=anonymous
+::ffff:172.31.0.6 - - [11/May/2026:05:55:53 +0000] "POST /webhook/stripe HTTP/1.1" 400 472 "-" "curl/8.17.0" reqId=EcrpMwYT userId=anonymous
+::ffff:172.31.0.6 - - [11/May/2026:05:55:53 +0000] "POST /webhook/stripe HTTP/1.1" 400 472 "-" "curl/8.17.0" reqId=NOZshawk userId=anonymous
+::ffff:172.31.0.6 - - [11/May/2026:05:55:53 +0000] "POST /webhook/stripe HTTP/1.1" 400 472 "-" "curl/8.17.0" reqId=a3NDLk3j userId=anonymous
+::ffff:172.31.0.6 - - [11/May/2026:05:55:53 +0000] "POST /webhook/stripe HTTP/1.1" 400 472 "-" "curl/8.17.0" reqId=2N5QRxmc userId=anonymous
+::ffff:172.31.0.6 - - [11/May/2026:05:55:53 +0000] "POST /webhook/stripe HTTP/1.1" 400 472 "-" "curl/8.17.0" reqId=r3V_A0EM userId=anonymous
+::ffff:172.31.0.6 - - [11/May/2026:05:55:53 +0000] "POST /webhook/stripe HTTP/1.1" 400 472 "-" "curl/8.17.0" reqId=KSA0gdOa userId=anonymous
+::ffff:172.31.0.6 - - [11/May/2026:05:55:53 +0000] "POST /webhook/stripe HTTP/1.1" 400 472 "-" "curl/8.17.0" reqId=8j55eDfd userId=anonymous
+::ffff:172.31.0.6 - - [11/May/2026:05:55:53 +0000] "POST /webhook/stripe HTTP/1.1" 400 472 "-" "curl/8.17.0" reqId=STTd789n userId=anonymous
+::ffff:172.31.0.6 - - [11/May/2026:05:55:53 +0000] "POST /webhook/stripe HTTP/1.1" 400 472 "-" "curl/8.17.0" reqId=biBxXVTW userId=anonymous
+::ffff:172.31.0.6 - - [11/May/2026:05:55:53 +0000] "POST /webhook/stripe HTTP/1.1" 400 472 "-" "curl/8.17.0" reqId=OzK0Vo1j userId=anonymous
+::ffff:172.31.0.6 - - [11/May/2026:05:55:53 +0000] "POST /webhook/stripe HTTP/1.1" 400 472 "-" "curl/8.17.0" reqId=KXlXvmJR userId=anonymous
+::ffff:172.31.0.6 - - [11/May/2026:05:55:53 +0000] "POST /webhook/stripe HTTP/1.1" 400 472 "-" "curl/8.17.0" reqId=6csl5WFG userId=anonymous
+::ffff:172.31.0.6 - - [11/May/2026:05:55:53 +0000] "POST /webhook/stripe HTTP/1.1" 400 472 "-" "curl/8.17.0" reqId=Ts0jNIqc userId=anonymous
+::ffff:172.31.0.6 - - [11/May/2026:05:55:53 +0000] "POST /webhook/stripe HTTP/1.1" 400 472 "-" "curl/8.17.0" reqId=QsEt8LJa userId=anonymous
+::ffff:172.31.0.6 - - [11/May/2026:05:55:53 +0000] "POST /webhook/stripe HTTP/1.1" 400 472 "-" "curl/8.17.0" reqId=JwAcss4s userId=anonymous
+::ffff:172.31.0.6 - - [11/May/2026:05:55:53 +0000] "POST /webhook/stripe HTTP/1.1" 400 472 "-" "curl/8.17.0" reqId=4aV6orSx userId=anonymous
+::ffff:172.31.0.6 - - [11/May/2026:05:55:53 +0000] "POST /webhook/stripe HTTP/1.1" 400 472 "-" "curl/8.17.0" reqId=sIeL8PCK userId=anonymous
+::ffff:172.31.0.6 - - [11/May/2026:05:55:53 +0000] "POST /webhook/stripe HTTP/1.1" 400 472 "-" "curl/8.17.0" reqId=mKIkMmdy userId=anonymous
+::ffff:172.31.0.6 - - [11/May/2026:05:55:53 +0000] "POST /webhook/stripe HTTP/1.1" 400 472 "-" "curl/8.17.0" reqId=nUWNDBYj userId=anonymous
+::ffff:172.31.0.6 - - [11/May/2026:05:55:53 +0000] "POST /webhook/stripe HTTP/1.1" 400 472 "-" "curl/8.17.0" reqId=x5df_fJc userId=anonymous
+::ffff:172.31.0.6 - - [11/May/2026:05:55:53 +0000] "POST /webhook/stripe HTTP/1.1" 400 472 "-" "curl/8.17.0" reqId=T1M_5eHh userId=anonymous
+::ffff:172.31.0.6 - - [11/May/2026:05:55:53 +0000] "POST /webhook/stripe HTTP/1.1" 400 472 "-" "curl/8.17.0" reqId=GFZ3UGDM userId=anonymous
+::ffff:172.31.0.6 - - [11/May/2026:05:55:53 +0000] "POST /webhook/stripe HTTP/1.1" 400 472 "-" "curl/8.17.0" reqId=X8OVwKu9 userId=anonymous
+::ffff:172.31.0.6 - - [11/May/2026:05:55:53 +0000] "POST /webhook/stripe HTTP/1.1" 400 472 "-" "curl/8.17.0" reqId=UOkBmGZ2 userId=anonymous
+::ffff:172.31.0.6 - - [11/May/2026:05:55:53 +0000] "POST /webhook/stripe HTTP/1.1" 400 472 "-" "curl/8.17.0" reqId=vCr0_LSp userId=anonymous
+::ffff:172.31.0.6 - - [11/May/2026:05:55:53 +0000] "POST /webhook/stripe HTTP/1.1" 400 472 "-" "curl/8.17.0" reqId=LTcful28 userId=anonymous
+::ffff:172.31.0.6 - - [11/May/2026:05:55:53 +0000] "POST /webhook/stripe HTTP/1.1" 400 472 "-" "curl/8.17.0" reqId=NBQXGcvj userId=anonymous
+::ffff:172.31.0.6 - - [11/May/2026:05:55:53 +0000] "POST /webhook/stripe HTTP/1.1" 400 472 "-" "curl/8.17.0" reqId=cUfiFOep userId=anonymous
+::ffff:172.31.0.6 - - [11/May/2026:05:55:53 +0000] "POST /webhook/stripe HTTP/1.1" 400 472 "-" "curl/8.17.0" reqId=AdAccaGk userId=anonymous
+::ffff:172.31.0.6 - - [11/May/2026:05:55:53 +0000] "POST /webhook/stripe HTTP/1.1" 400 472 "-" "curl/8.17.0" reqId=nszNXggm userId=anonymous
+::ffff:172.31.0.6 - - [11/May/2026:05:55:53 +0000] "POST /webhook/stripe HTTP/1.1" 400 472 "-" "curl/8.17.0" reqId=5cP9MUfo userId=anonymous
+::ffff:172.31.0.6 - - [11/May/2026:05:55:53 +0000] "POST /webhook/stripe HTTP/1.1" 400 472 "-" "curl/8.17.0" reqId=sURCzvuX userId=anonymous
+::ffff:172.31.0.6 - - [11/May/2026:05:55:53 +0000] "POST /webhook/stripe HTTP/1.1" 400 472 "-" "curl/8.17.0" reqId=AEOP50yl userId=anonymous
+::ffff:172.31.0.6 - - [11/May/2026:05:55:53 +0000] "POST /webhook/stripe HTTP/1.1" 400 472 "-" "curl/8.17.0" reqId=DlxoHZXO userId=anonymous
+::ffff:172.31.0.6 - - [11/May/2026:05:56:18 +0000] "POST /webhook/stripe HTTP/1.1" 400 475 "-" "curl/8.17.0" reqId=iKutEPCk userId=anonymous
+::ffff:172.31.0.6 - - [11/May/2026:05:57:42 +0000] "POST /webhook/stripe HTTP/1.1" 400 475 "-" "curl/8.17.0" reqId=oQlEFdmA userId=anonymous
+::ffff:127.0.0.1 - - [11/May/2026:06:03:03 +0000] "POST /api/orders HTTP/1.1" 400 381 "-" "-" reqId=CqlXdKc6 userId=anonymous
+::ffff:127.0.0.1 - - [11/May/2026:06:03:09 +0000] "POST /api/orders HTTP/1.1" 409 159 "-" "-" reqId=oNhfYzod userId=anonymous
+::ffff:127.0.0.1 - - [11/May/2026:06:03:54 +0000] "GET /api/orders/some-fake-id-that-does-not-exist HTTP/1.1" 404 74 "-" "-" reqId=On7nBpHh userId=anonymous
+::ffff:127.0.0.1 - - [11/May/2026:06:04:31 +0000] "GET /api/orders/fake-id HTTP/1.1" 404 74 "-" "-" reqId=D3kMUeCp userId=anonymous
+::ffff:127.0.0.1 - - [11/May/2026:06:20:53 +0000] "POST /webhook/stripe HTTP/1.1" 400 475 "-" "node" reqId=qYZhbnq3 userId=anonymous
+::ffff:127.0.0.1 - - [11/May/2026:06:21:03 +0000] "POST /api/checkout/create-session HTTP/1.1" 500 97 "-" "node" reqId=XfmlYSRx userId=anonymous
+::ffff:127.0.0.1 - - [11/May/2026:06:21:03 +0000] "GET /api/checkout/session/cs_test_bogus_does_not_exist HTTP/1.1" 404 68 "-" "node" reqId=1KVZITuy userId=anonymous
+::ffff:127.0.0.1 - - [11/May/2026:06:21:15 +0000] "POST /api/orders HTTP/1.1" 400 173 "-" "node" reqId=-A40JtWG userId=anonymous
+::ffff:127.0.0.1 - - [11/May/2026:06:21:15 +0000] "POST /api/orders HTTP/1.1" 400 173 "-" "node" reqId=unKIVH1A userId=anonymous
+::ffff:127.0.0.1 - - [11/May/2026:06:34:40 +0000] "POST /api/checkout/create-session HTTP/1.1" 500 97 "-" "node" reqId=X8jjyRDC userId=anonymous
+::ffff:127.0.0.1 - - [11/May/2026:06:34:40 +0000] "GET /api/checkout/session/cs_test_bogus_does_not_exist HTTP/1.1" 404 68 "-" "node" reqId=-GWPMdG1 userId=anonymous
+::ffff:127.0.0.1 - - [11/May/2026:06:35:04 +0000] "GET /api/checkout/session/cs_test_bogus_does_not_exist HTTP/1.1" 404 68 "-" "node" reqId=Er1h67fM userId=anonymous
+::ffff:142.250.198.170 - - [11/May/2026:06:36:32 +0000] "GET /api/wishlist/vLmoebqu-OuAHBCqrEawP HTTP/1.1" 404 50 "http://localhost:3000/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36" reqId=lciOUdA- userId=anonymous
+::ffff:142.250.198.170 - - [11/May/2026:06:36:42 +0000] "GET /api/reviews/product/10?offset=0&limit=5 HTTP/1.1" 500 99 "http://localhost:3000/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36" reqId=7gNRFY5R userId=anonymous
+::ffff:142.250.198.170 - - [11/May/2026:06:36:42 +0000] "GET /api/reviews/product/10/user/vLmoebqu-OuAHBCqrEawP HTTP/1.1" 500 99 "http://localhost:3000/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36" reqId=Wrmyubnn userId=anonymous
+::ffff:142.250.198.170 - - [11/May/2026:06:36:42 +0000] "GET /api/reviews/product/10?offset=0&limit=5 HTTP/1.1" 500 99 "http://localhost:3000/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36" reqId=Q2Mw6wlt userId=anonymous
+::ffff:142.250.198.170 - - [11/May/2026:06:36:42 +0000] "GET /api/reviews/product/10/user/vLmoebqu-OuAHBCqrEawP HTTP/1.1" 500 99 "http://localhost:3000/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36" reqId=jisTAyqA userId=anonymous
+::ffff:127.0.0.1 - - [11/May/2026:06:40:40 +0000] "GET /api/checkout/session/cs_test_bogus_does_not_exist HTTP/1.1" 404 68 "-" "node" reqId=cZV6rOs0 userId=anonymous
+::ffff:142.250.198.170 - - [11/May/2026:06:43:26 +0000] "GET /api/wishlist/vLmoebqu-OuAHBCqrEawP HTTP/1.1" 404 50 "http://localhost:3000/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36" reqId=SAwLRa_q userId=anonymous
+::ffff:142.250.198.170 - - [11/May/2026:06:44:15 +0000] "GET /api/wishlist/vLmoebqu-OuAHBCqrEawP HTTP/1.1" 404 50 "http://localhost:3000/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36" reqId=-D_duCVz userId=anonymous

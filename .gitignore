@@ -28,6 +28,7 @@ yarn-error.log*
 # local env files
 .env*.local
 .env
+.env.docker
 
 # vercel
 .vercel
@@ -41,6 +42,9 @@ next-env.d.ts
 *.sql
 *.dump
 *.backup
+
+# But allow Prisma migrations
+!prisma/migrations/**/*.sql
 
 # Logs
 *.log

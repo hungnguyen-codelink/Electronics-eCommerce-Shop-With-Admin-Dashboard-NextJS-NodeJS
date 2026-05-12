@@ -3,6 +3,16 @@ const path = require('path');
 // Load env from server/.env then fallback to project root .env
 require('dotenv').config({ path: path.join(__dirname, '.env') });
 require('dotenv').config({ path: path.join(__dirname, '..', '.env') });
+
+// Validate Stripe env vars at boot — fail fast if missing.
+const REQUIRED_STRIPE_ENV = ['STRIPE_SECRET_KEY', 'STRIPE_WEBHOOK_SECRET'];
+for (const key of REQUIRED_STRIPE_ENV) {
+  if (!process.env[key]) {
+    console.error(`FATAL: missing required env var ${key}. See server/.env.`);
+    process.exit(1);
+  }
+}
+
 const bcrypt = require('bcryptjs');
 const fileUpload = require("express-fileupload");
 const productsRouter = require("./routes/products");
@@ -18,6 +28,8 @@ const orderProductRouter = require('./routes/customer_order_product');
 const notificationsRouter = require('./routes/notifications');
 const merchantRouter = require('./routes/merchant'); // Add this line
 const bulkUploadRouter = require('./routes/bulkUpload');
+const reviewsRouter = require("./routes/reviews");
+const checkoutRouter = require('./routes/checkout');
 var cors = require("cors");
 
 // Import logging middleware
@@ -93,8 +105,15 @@ const corsOptions = {
   credentials: true, // Allow cookies and authorization headers
 };
 
-// Apply general rate limiting to all routes
-app.use(generalLimiter);
+// Apply general rate limiting to all routes, but bypass webhook
+app.use((req, res, next) => {
+  if (req.path === '/webhook/stripe') return next();
+  return generalLimiter(req, res, next);
+});
+
+// Mount Stripe webhook BEFORE express.json() so raw body is preserved
+const stripeWebhookRouter = require('./routes/stripeWebhook');
+app.use('/webhook/stripe', stripeWebhookRouter);
 
 app.use(express.json());
 app.use(cors(corsOptions));
@@ -105,6 +124,7 @@ app.use("/api/users", userManagementLimiter);
 app.use("/api/search", searchLimiter);
 app.use("/api/orders", orderLimiter);
 app.use("/api/order-product", orderLimiter);
+app.use("/api/checkout", orderLimiter);
 app.use("/api/images", uploadLimiter);
 app.use("/api/main-image", uploadLimiter);
 // app.use("/api/wishlist", wishlistLimiter);
@@ -126,11 +146,13 @@ app.use("/api/users", userRouter);
 app.use("/api/search", searchRouter);
 app.use("/api/orders", orderRouter);
 app.use('/api/order-product', orderProductRouter);
+app.use('/api/checkout', checkoutRouter);
 app.use("/api/slugs", slugRouter);
 // app.use("/api/wishlist", wishlistRouter);
 app.use("/api/notifications", notificationsRouter);
-app.use("/api/merchants", merchantRouter); 
+app.use("/api/merchants", merchantRouter);
 app.use("/api/bulk-upload", bulkUploadRouter);
+app.use("/api/reviews", reviewsRouter);
 
 // Health check endpoint (no rate limiting)
 app.get('/health', (req, res) => {

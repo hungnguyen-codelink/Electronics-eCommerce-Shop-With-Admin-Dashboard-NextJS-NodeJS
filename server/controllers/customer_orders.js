@@ -1,5 +1,4 @@
-const { PrismaClient } = require("@prisma/client");
-const prisma = new PrismaClient();
+const prisma = require('../utills/db');
 const { validateOrderData, ValidationError } = require('../utills/validation');
 const { createOrderUpdateNotification } = require('../utills/notificationHelpers');
 
@@ -54,7 +53,14 @@ async function createCustomerOrder(request, response) {
     });
 
     if (duplicateOrder) {
-      console.log("❌ Duplicate order detected (same email, amount, within 1 minute)");
+      if (duplicateOrder.paymentStatus === 'unpaid') {
+        // Retry-after-cancel scenario: customer is resuming the same checkout.
+        // Return the existing orderId so the client can proceed to create-session for it.
+        console.log(`↩️  Returning existing unpaid order ${duplicateOrder.id} (within 1-min window)`);
+        return response.status(200).json({ id: duplicateOrder.id, reused: true });
+      }
+      // Already-paid duplicate within 1 min → real concern, reject.
+      console.log("❌ Duplicate order detected (already paid, within 1 minute)");
       return response.status(409).json({
         error: "Duplicate order detected",
         details: "An identical order was just created. Please wait a moment before creating another order with the same details."

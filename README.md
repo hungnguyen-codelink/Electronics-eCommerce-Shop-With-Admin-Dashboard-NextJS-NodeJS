@@ -235,3 +235,104 @@ npm run dev
 <h3>Admin dashboard - All users page</h3>
 
 ![singitronic admin users page](https://github.com/Kuzma02/Electronics-eCommerce-Shop-With-Admin-Dashboard-NextJS-NodeJS/assets/138793624/e14e8f2c-4377-42fd-b89b-d4868cc11b11)
+
+## Docker Development Stack
+
+The full stack runs in Docker for local development — MySQL, Express, Next.js,
+and an Adminer DB GUI.
+
+### One-time setup
+
+```bash
+cp .env.docker.example .env.docker
+# Edit .env.docker and replace REPLACE_WITH_A_LONG_RANDOM_STRING with:
+#   openssl rand -base64 32
+
+docker compose up -d --build
+docker compose exec express npx prisma migrate dev --schema=/app/prisma/schema.prisma
+```
+
+After setup, the stack is reachable at:
+
+- Next.js → http://localhost:3000
+- Express → http://localhost:3001
+- Adminer → http://localhost:8080 (server `mysql`, user `root`, pass `dockerpass`)
+
+### Daily use
+
+```bash
+docker compose up -d                # start
+docker compose logs -f nextjs       # tail one service
+docker compose down                 # stop, keep DB volume
+docker compose down -v              # full reset (drops mysql_data)
+```
+
+Code changes in `app/`, `components/`, `lib/`, or `server/` hot-reload via the
+bind mount. Schema changes need:
+
+```bash
+docker compose exec express npx prisma migrate dev --name <change>
+docker compose restart express nextjs
+```
+
+Adding a new dependency (`package.json` change) requires rebuilding the
+service so the anonymous `node_modules` volume is regenerated:
+
+```bash
+docker compose up -d --build <nextjs|express>
+```
+
+### Troubleshooting
+
+- **Express can't reach MySQL** — `docker compose ps` should show `mysql` as
+  `healthy`. If it sticks at `unhealthy`, `docker compose logs mysql` will
+  show why (commonly: host port 3306 collision).
+- **Browser shows CORS error** — `FRONTEND_URL` in `.env.docker` must match
+  the URL the browser is using.
+- **Prisma client looks stale after schema change** — `docker compose restart
+  express nextjs` regenerates the client on container start.
+- **SSR pages show `ECONNREFUSED 127.0.0.1:3001` after editing `lib/api.ts` or
+  `lib/config.ts`** — Next.js is serving a cached `.next` build from before the
+  change. Clear it: `docker compose exec nextjs rm -rf .next && docker compose
+  restart nextjs`.
+- **`linux-musl` engine error from Prisma** — only happens if someone swaps
+  the base image to Alpine. Stay on `node:20-bookworm-slim` (the default in
+  this repo) and the default binary targets work.
+
+## Stripe payments (dev)
+
+The Express server expects Stripe **test-mode** credentials in `server/.env`:
+
+```bash
+STRIPE_SECRET_KEY=sk_test_...           # from https://dashboard.stripe.com/test/apikeys
+STRIPE_WEBHOOK_SECRET=whsec_...         # see below
+```
+
+### Local webhook delivery
+
+Stripe can't POST to `localhost`. Use the Stripe CLI to forward events:
+
+```bash
+brew install stripe/stripe-cli/stripe        # one-time
+stripe login                                  # one-time per machine
+stripe listen --forward-to http://localhost:3001/webhook/stripe
+# → copy the printed whsec_... into server/.env's STRIPE_WEBHOOK_SECRET, then restart the server
+```
+
+Trigger a synthetic event:
+
+```bash
+stripe trigger checkout.session.completed
+```
+
+Replay a real event for idempotency testing:
+
+```bash
+stripe events resend evt_...
+```
+
+### Going live (operational, not a code change)
+
+1. Create a live-mode webhook endpoint in the Stripe Dashboard pointing at `https://yourdomain.com/webhook/stripe`. Subscribe to `checkout.session.completed`, `checkout.session.expired`, `payment_intent.payment_failed`.
+2. In production secrets, set `STRIPE_SECRET_KEY=sk_live_...` and `STRIPE_WEBHOOK_SECRET` to the live endpoint's signing secret. Leave staging/dev on `sk_test_...`.
+3. Smoke-test with a $0.50 real charge, refund from the Dashboard.
