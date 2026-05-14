@@ -97,3 +97,36 @@ Everything under `app/(dashboard)/admin/*` (route group — the `(dashboard)` se
 - `server/utills/` (extra L) — see above.
 - `wishlistRouter` is commented out in `server/app.js` and route file is gone — wishlist currently lives only in Zustand client state. Don't re-enable without checking the route file.
 - `e-commerce.zip` and `e-commerce-session-history.zip` at the root are large untracked archives, not build artifacts — leave them alone.
+
+## ByteRover memory layer (`.brv/`)
+
+The `.brv/` directory is the ByteRover knowledge base for this project. **It is versioned by regular `git`** — we do *not* use `brv vc` (their cloud sync requires a subscription). Curated knowledge ships alongside the code in the same commits and the same GitHub history.
+
+### What's versioned vs. ignored
+
+| Path | Status |
+|---|---|
+| `.brv/context-tree/**/*.md` | **Tracked** — curated knowledge. Commit it. |
+| `.brv/config.json` | **Tracked** — project-level brv config (no secrets). |
+| `.brv/_queue_status.json`, `.brv/dream-state.json`, `.brv/dream-log/`, `.brv/review-backups/`, `.brv/dream.lock`, `.brv/vc/` | **Ignored** — runtime state (see `.gitignore`). |
+
+### Day-to-day rules for Claude
+
+1. **After every `brv curate` or hand-edit under `.brv/context-tree/`**, `git add .brv/context-tree/` (and `.brv/config.json` if changed) and commit. Don't leave new memory uncommitted.
+2. **Never run `brv vc` commands** — there's no `.brv/vc/` repo, no `origin`, no `brv login`. If a workflow doc mentions them, ignore it and use regular git instead.
+3. **Curate may queue pending reviews** instead of writing files directly. If `git status` shows no `.brv/context-tree/` changes after a curate, check `brv review list` and approve with `brv review approve <taskId>`.
+4. **Don't commit runtime files** — `_queue_status.json`, `dream-state.json`, `dream-log/`, `review-backups/`, `dream.lock`, and `vc/` are gitignored on purpose. If they ever sneak in, untrack with `git rm --cached`.
+5. **Knowledge commits can be batched with code or split out** — your call per change. Use a clear prefix in the commit message (e.g. `memory:` or `docs(brv):`) so they're easy to spot in `git log`.
+6. **Branches & merges use regular git** — feature branches for risky restructures of the context tree, normal merge conflict resolution in the Markdown files.
+
+### Quick reference
+
+```bash
+brv curate "..."                                    # writes Markdown into .brv/context-tree/
+git status .brv/                                    # see what changed
+git add .brv/context-tree/ .brv/config.json
+git commit -m "memory: <what you learned>"
+
+brv review list                                     # if curate queued a review
+brv review approve <taskId>                         # then re-run the commit flow
+```

@@ -1,1 +1,0 @@
-This project utilizes a domain-driven modular architecture with NextJS and NodeJS, featuring a Prisma singleton pattern for efficient database context management.

@@ -62,3 +62,12 @@ Thumbs.db
 
 # git worktrees
 .worktrees/
+
+# ByteRover memory layer — knowledge tracked by regular git, runtime state ignored.
+# See CLAUDE.md "ByteRover memory layer" section.
+.brv/_queue_status.json
+.brv/dream-state.json
+.brv/dream-log/
+.brv/review-backups/
+.brv/dream.lock
+.brv/vc/

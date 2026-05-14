@@ -1,1 +1,0 @@
-The authentication architecture utilizes a NextAuth JWT-only strategy with 15-minute token expiration and middleware-enforced role-based access control for admin routes.
