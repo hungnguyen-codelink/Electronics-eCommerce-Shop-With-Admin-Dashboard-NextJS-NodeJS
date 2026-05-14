@@ -100,33 +100,39 @@ Everything under `app/(dashboard)/admin/*` (route group — the `(dashboard)` se
 
 ## ByteRover memory layer (`.brv/`)
 
-The `.brv/` directory is the ByteRover knowledge base for this project. **It is versioned by regular `git`** — we do *not* use `brv vc` (their cloud sync requires a subscription). Curated knowledge ships alongside the code in the same commits and the same GitHub history.
+The `.brv/` directory is the ByteRover knowledge base for this project. **It is its own nested git repo** with full history of all curated knowledge, pushed to its own GitHub remote: <https://github.com/hungnguyen-codelink/Electronics-eCommerce-Shop-NextJS-NodeJS-brv> (private). We do *not* use `brv vc` (their cloud sync requires a subscription) — regular `git` runs inside `.brv/` itself. The main repo's `.gitignore` excludes `.brv/` entirely so it never appears in main-repo diffs.
 
-### What's versioned vs. ignored
+> ⚠ **The brv daemon manages `.brv/.git` autonomously.** When `brv review approve` runs, the daemon may re-initialize `.git`, fetch+reset to align with curated content, and **auto-commit** changes (e.g. the `chore: bootstrap standalone repo` commit). Don't be surprised by commits you didn't make. Your local commits can be overwritten by the daemon's rewrites — if you have local work that hasn't been pushed, push it first, or store the SHA. The remote is the durable source of truth; if anything goes wrong locally, `git -C .brv fetch origin && git -C .brv reset --hard origin/main`.
 
-| Path | Status |
+### What's versioned vs. ignored (inside `.brv/`)
+
+| Path (relative to `.brv/`) | Status |
 |---|---|
-| `.brv/context-tree/**/*.md` | **Tracked** — curated knowledge. Commit it. |
-| `.brv/config.json` | **Tracked** — project-level brv config (no secrets). |
-| `.brv/_queue_status.json`, `.brv/dream-state.json`, `.brv/dream-log/`, `.brv/review-backups/`, `.brv/dream.lock`, `.brv/vc/` | **Ignored** — runtime state (see `.gitignore`). |
+| `context-tree/**/*.md` | **Tracked** — curated knowledge. Commit it. |
+| `config.json` | **Tracked** — project-level brv config (no secrets). |
+| `.gitignore` | **Tracked** — defines what's runtime state. |
+| `_queue_status.json`, `dream-state.json`, `dream-log/`, `review-backups/`, `dream.lock`, `vc/` | **Ignored** — runtime state. |
 
 ### Day-to-day rules for Claude
 
-1. **After every `brv curate` or hand-edit under `.brv/context-tree/`**, `git add .brv/context-tree/` (and `.brv/config.json` if changed) and commit. Don't leave new memory uncommitted.
-2. **Never run `brv vc` commands** — there's no `.brv/vc/` repo, no `origin`, no `brv login`. If a workflow doc mentions them, ignore it and use regular git instead.
-3. **Curate may queue pending reviews** instead of writing files directly. If `git status` shows no `.brv/context-tree/` changes after a curate, check `brv review list` and approve with `brv review approve <taskId>`.
-4. **Don't commit runtime files** — `_queue_status.json`, `dream-state.json`, `dream-log/`, `review-backups/`, `dream.lock`, and `vc/` are gitignored on purpose. If they ever sneak in, untrack with `git rm --cached`.
-5. **Knowledge commits can be batched with code or split out** — your call per change. Use a clear prefix in the commit message (e.g. `memory:` or `docs(brv):`) so they're easy to spot in `git log`.
-6. **Branches & merges use regular git** — feature branches for risky restructures of the context tree, normal merge conflict resolution in the Markdown files.
+1. **`.brv/` is a separate repo.** All git commands for memory commits must target it explicitly: `git -C .brv <command>` (or `cd .brv` first). Running `git status` in the main repo will *not* show memory changes.
+2. **After every `brv curate` or hand-edit under `.brv/context-tree/`**, `git -C .brv add context-tree/` (and `config.json` if changed) and commit inside `.brv/`. Don't leave new memory uncommitted.
+3. **Never run `brv vc` commands** — there's no `.brv/vc/` repo, no `origin`, no `brv login`. If a workflow doc mentions them, ignore it and use regular git instead.
+4. **Curate may queue pending reviews** instead of writing files directly. If `git -C .brv status` shows no `context-tree/` changes after a curate, check `brv review list` and approve with `brv review approve <taskId>`.
+5. **Don't commit runtime files** — they're listed in `.brv/.gitignore`. If they ever sneak in, untrack with `git -C .brv rm --cached <file>`.
+6. **Memory commits live in the `.brv/` repo only** — they will never appear in the main repo's `git log`. Use a clear prefix in the commit message (e.g. `memory:` or `docs(brv):`) so they're easy to spot in `git -C .brv log`.
+7. **Branches & merges use regular git** — `git -C .brv checkout -b ...` for risky restructures of the context tree, normal merge conflict resolution in the Markdown files.
+8. **Push regularly.** Because the brv daemon can rewrite local history during a review-approve, `git -C .brv push` after every curate session so the remote always has the latest curated state. If the daemon's auto-commits diverge from local, `git -C .brv pull --rebase` or `reset --hard origin/main` to reconcile.
 
 ### Quick reference
 
 ```bash
 brv curate "..."                                    # writes Markdown into .brv/context-tree/
-git status .brv/                                    # see what changed
-git add .brv/context-tree/ .brv/config.json
-git commit -m "memory: <what you learned>"
+git -C .brv status                                  # see what changed in the memory repo
+git -C .brv add context-tree/ config.json
+git -C .brv commit -m "memory: <what you learned>"
+git -C .brv push                                    # push to private GitHub remote
 
 brv review list                                     # if curate queued a review
-brv review approve <taskId>                         # then re-run the commit flow
+brv review approve <taskId>                         # then re-run the commit/push flow above
 ```
